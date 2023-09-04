@@ -44,3 +44,13 @@ class Listener(BaseUser):
         max_length=6, choices=AccountType.choices, default=AccountType.NORMAL
     )
 
+
+class Band(models.Model):
+    name = models.CharField(max_length=50)
+    bio = models.TextField(null=True, blank=True)
+    image = models.ImageField(upload_to="users", null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
