@@ -54,3 +54,5 @@ class Band(models.Model):
         return self.name
 
 
+class Artist(BaseUser):
+    band = models.ForeignKey(Band, on_delete=models.SET_NULL, null=True)
