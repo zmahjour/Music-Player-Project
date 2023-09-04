@@ -35,4 +35,12 @@ class BaseUser(AbstractBaseUser, PermissionsMixin):
         return self.username
 
 
-# Create your models here.
+class Listener(BaseUser):
+    class AccountType(models.TextChoices):
+        VIP = "VIP"
+        NORMAL = "Normal"
+
+    account_type = models.CharField(
+        max_length=6, choices=AccountType.choices, default=AccountType.NORMAL
+    )
+
