@@ -11,3 +11,28 @@ class Like(models.Model):
     def __str__(self):
         return f'{self.user} liked "{self.song}"'
 
+
+class Comment(models.Model):
+    user = models.ForeignKey(
+        Listener, on_delete=models.CASCADE, related_name="user_comments"
+    )
+    song = models.ForeignKey(
+        Song, on_delete=models.CASCADE, related_name="song_comments"
+    )
+    reply = models.ForeignKey(
+        "self",
+        on_delete=models.CASCADE,
+        related_name="reply_comments",
+        blank=True,
+        null=True,
+    )
+    is_reply = models.BooleanField(default=False)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created"]
+
+    def __str__(self):
+        return f"{self.user}: {self.content[:30]}"
+
