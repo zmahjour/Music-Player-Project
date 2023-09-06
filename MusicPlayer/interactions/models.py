@@ -40,6 +40,7 @@ class Playlist(models.Model):
     owner = models.ForeignKey(Listener, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, null=True, blank=True)
     description = models.TextField()
+    songs = models.ManyToManyField("songs.Song")
 
     def __str__(self):
         return f"{self.name}: {self.owner}"
