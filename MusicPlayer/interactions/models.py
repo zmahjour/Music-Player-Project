@@ -1,12 +1,11 @@
 from django.db import models
 
 from accounts.models import Listener
-from songs.models import Song
 
 
 class Like(models.Model):
     user = models.ForeignKey(Listener, on_delete=models.CASCADE)
-    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    song = models.ForeignKey("songs.Song", on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.user} liked "{self.song}"'
@@ -17,7 +16,7 @@ class Comment(models.Model):
         Listener, on_delete=models.CASCADE, related_name="user_comments"
     )
     song = models.ForeignKey(
-        Song, on_delete=models.CASCADE, related_name="song_comments"
+        "songs.Song", on_delete=models.CASCADE, related_name="song_comments"
     )
     reply = models.ForeignKey(
         "self",
